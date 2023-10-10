@@ -55,6 +55,9 @@ const char *a1943kai_get_ctrl_name(int type);
 extern const struct ControlInfo a1943_ctrl;
 const char *a1943_get_ctrl_name(int type);
 
+extern const struct ControlInfo mjelctrn_ctrl;
+const char *mjelctrn_get_ctrl_name(int type);
+
 extern const struct ControlInfo a1944_ctrl;
 const char *a1944_get_ctrl_name(int type);
 

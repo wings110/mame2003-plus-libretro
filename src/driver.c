@@ -364,7 +364,7 @@ const struct GameDriver *test_drivers[] =
 	DRIVER( kodure )	/* (c) 1987 (Japan) */
 	DRIVER( armedf )	/* (c) 1988 */
 	DRIVER( cclimbr2 )	/* (c) 1988 (Japan) */
-
+        DRIVER( mjelctrn )       
 	/* Nichibutsu Mahjong games */
 	DRIVER( hyhoo )		/* (c) 1987 */
 	DRIVER( hyhoo2 )	/* (c) 1987 */

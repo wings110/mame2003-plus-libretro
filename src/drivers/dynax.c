@@ -1781,6 +1781,129 @@ INPUT_PORTS_START( mcnpshnt )
 	PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_UNKNOWN )
 INPUT_PORTS_END
 
+static INPUT_PORTS_START( mjelctrn )
+	PORT_START("DSW0")	/* 7c21 (select = 00) */
+	PORT_DIPNAME( 0x03, 0x03, "Difficulty?" )
+	PORT_DIPSETTING(    0x03, "0" )	// 20
+	PORT_DIPSETTING(    0x00, "1" )	// 32
+	PORT_DIPSETTING(    0x01, "2" )	// 64
+	PORT_DIPSETTING(    0x02, "3" )	// c8
+	PORT_DIPNAME( 0x0c, 0x0c, DEF_STR( Coin_A ) )
+	PORT_DIPSETTING(    0x0c, DEF_STR( 1C_1C ) )
+	PORT_DIPSETTING(    0x08, DEF_STR( 1C_2C ) )
+	PORT_DIPSETTING(    0x04, DEF_STR( 1C_5C ) )
+	PORT_DIPSETTING(    0x00, "1 Coin/10 Credits" )
+	PORT_DIPNAME( 0x30, 0x30, "Min Pay?" )
+	PORT_DIPSETTING(    0x30, "1" )
+	PORT_DIPSETTING(    0x20, "2" )
+	PORT_DIPSETTING(    0x10, "3" )
+	PORT_DIPSETTING(    0x00, "5" )
+	PORT_DIPNAME( 0x40, 0x40, "Allow Coin Out" )
+	PORT_DIPSETTING(    0x00, DEF_STR( Off ) )
+	PORT_DIPSETTING(    0x40, DEF_STR( On ) )
+	PORT_DIPNAME( 0x80, 0x80, "Win A Prize?" )
+	PORT_DIPSETTING(    0x80, DEF_STR( Off ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
+
+	PORT_START("DSW1") /* 7c20 (select = 40) */
+	PORT_DIPNAME( 0x0f, 0x07, "Pay Out Rate" )
+	PORT_DIPSETTING(    0x00, "50" )
+	PORT_DIPSETTING(    0x01, "53" )
+	PORT_DIPSETTING(    0x02, "56" )
+	PORT_DIPSETTING(    0x03, "59" )
+	PORT_DIPSETTING(    0x04, "62" )
+	PORT_DIPSETTING(    0x05, "65" )
+	PORT_DIPSETTING(    0x06, "68" )
+	PORT_DIPSETTING(    0x07, "71" )
+	PORT_DIPSETTING(    0x08, "75" )
+	PORT_DIPSETTING(    0x09, "78" )
+	PORT_DIPSETTING(    0x0a, "81" )
+	PORT_DIPSETTING(    0x0b, "84" )
+	PORT_DIPSETTING(    0x0c, "87" )
+	PORT_DIPSETTING(    0x0d, "90" )
+	PORT_DIPSETTING(    0x0e, "93" )
+	PORT_DIPSETTING(    0x0f, "96" )
+	PORT_DIPNAME( 0x30, 0x30, "Max Bet" )
+	PORT_DIPSETTING(    0x30, "1" )
+	PORT_DIPSETTING(    0x20, "5" )
+	PORT_DIPSETTING(    0x10, "10" )
+	PORT_DIPSETTING(    0x00, "20" )
+	PORT_DIPNAME( 0x40, 0x40, DEF_STR( Coin_B ) )
+	PORT_DIPSETTING(    0x40, DEF_STR( 1C_5C ) )
+	PORT_DIPSETTING(    0x00, "1 Coin/10 Credits" )
+	PORT_DIPNAME( 0x80, 0x80, DEF_STR( Flip_Screen ) )
+	PORT_DIPSETTING(    0x80, DEF_STR( Off ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
+
+	PORT_START("COINS")
+	PORT_BIT( 0x01, IP_ACTIVE_LOW, IPT_GAMBLE_PAYOUT ) PORT_CODE(KEYCODE_4)	// Pay
+	PORT_BIT( 0x02, IP_ACTIVE_LOW, IPT_UNKNOWN  )	// 18B
+	PORT_SERVICE( 0x04, IP_ACTIVE_LOW )				// Test
+	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_SERVICE2 )	// Analyzer
+	PORT_BIT( 0x10, IP_ACTIVE_LOW, IPT_SERVICE3 )	// Memory Reset
+	PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_COIN2    )	// Note
+	PORT_BIT( 0x40, IP_ACTIVE_LOW, IPT_COIN1    )	// Coin
+	PORT_BIT( 0x80, IP_ACTIVE_LOW, IPT_SERVICE1 )	// Service
+
+	PORT_INCLUDE( MAHJONG_KEYS_BET )
+
+	PORT_START("DSW3") /* 7c22 (select = 80) */
+	PORT_DIPNAME( 0x07, 0x07, "YAKUMAN Bonus" )
+	PORT_DIPSETTING(    0x07, "Cut" )
+	PORT_DIPSETTING(    0x06, "1 T" )
+	PORT_DIPSETTING(    0x05, "300" )
+	PORT_DIPSETTING(    0x04, "500" )
+	PORT_DIPSETTING(    0x03, "700" )
+	PORT_DIPSETTING(    0x02, "1000" )
+//  PORT_DIPSETTING(    0x01, "1000" )
+//  PORT_DIPSETTING(    0x00, "1000" )
+	PORT_DIPNAME( 0x08, 0x08, "YAKU times" )
+	PORT_DIPSETTING(    0x08, "1" )
+	PORT_DIPSETTING(    0x00, "2" )
+	PORT_DIPNAME( 0x10, 0x10, "Win Rate?" )
+	PORT_DIPSETTING(    0x10, DEF_STR( High ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( Low ) )
+	PORT_DIPNAME( 0x20, 0x20, "Draw New Tile (Part 4 Only)" )
+	PORT_DIPSETTING(    0x00, "Automatic" )
+	PORT_DIPSETTING(    0x20, "Manual" )
+	PORT_DIPNAME( 0x40, 0x40, "DonDen Key" )
+	PORT_DIPSETTING(    0x40, "A" )
+	PORT_DIPSETTING(    0x00, "Flip Flop" )
+	PORT_DIPNAME( 0x80, 0x00, "Subtitle" )
+	PORT_DIPSETTING(    0x80, "None (Part 2)" )
+	PORT_DIPSETTING(    0x00, "???? (Part 4)" )
+
+	PORT_START("DSW4") // 7c23 (select = c0)
+	PORT_DIPNAME( 0x01, 0x01, "Last Chance" )
+	PORT_DIPSETTING(    0x00, DEF_STR( Off ) )
+	PORT_DIPSETTING(    0x01, DEF_STR( On ) )
+	PORT_DIPNAME( 0x02, 0x02, "Pay Rate?" )
+	PORT_DIPSETTING(    0x02, DEF_STR( High ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( Low ) )
+	PORT_DIPNAME( 0x04, 0x04, "Choose Bonus" )
+	PORT_DIPSETTING(    0x04, DEF_STR( Off ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
+	PORT_DIPNAME( 0x08, 0x08, "In-Game Bet?" )
+	PORT_DIPSETTING(    0x00, DEF_STR( Off ) )
+	PORT_DIPSETTING(    0x08, DEF_STR( On ) )
+	PORT_DIPNAME( 0x10, 0x00, DEF_STR( Demo_Sounds ) )
+	PORT_DIPSETTING(    0x10, DEF_STR( Off ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
+	PORT_DIPNAME( 0x20, 0x00, "In-Game Music" )
+	PORT_DIPSETTING(    0x20, DEF_STR( Off ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
+	PORT_DIPNAME( 0x40, 0x40, "Select Girl" )
+	PORT_DIPSETTING(    0x40, DEF_STR( Off ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
+	PORT_DIPNAME( 0x80, 0x00, "Girls" )
+	PORT_DIPSETTING(    0x80, DEF_STR( Off ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
+
+	PORT_START("FAKE")	/* IN10 - Fake DSW */
+	PORT_DIPNAME( 0xff, 0xff, "Allow Bets" )
+	PORT_DIPSETTING(    0x00, DEF_STR( Off ) )
+	PORT_DIPSETTING(    0xff, DEF_STR( On ) )
+INPUT_PORTS_END
 
 INPUT_PORTS_START( nanajign )
 	PORT_START
@@ -2029,7 +2152,7 @@ static MACHINE_DRIVER_START( hnoridur )
 	MDRV_SCREEN_SIZE(512, 256)
 	MDRV_VISIBLE_AREA(0, 512-1, 16, 256-1)
 	MDRV_PALETTE_LENGTH(16*256)
-
+        MDRV_VIDEO_START(mjelctrn)
 	MDRV_VIDEO_START(hnoridur)
 	MDRV_VIDEO_UPDATE(hnoridur)
 
@@ -2123,6 +2246,67 @@ static MACHINE_DRIVER_START( roldfrog )
 	MDRV_SOUND_ADD(YM2203, sprtmtch_ym2203_interface)
 MACHINE_DRIVER_END
 
+/***************************************************************************
+                            Mahjong Electron Base
+***************************************************************************/
+
+static READ8_HANDLER( mjelctrn_keyboard_1_r )
+{
+	return (hanamai_keyboard_1_r(space, 0) & 0x3f) | (input_port_read(space->machine, "FAKE") ? 0x40 : 0);
+}
+
+static READ8_HANDLER( mjelctrn_dsw_r )
+{
+	dynax_state *state = (dynax_state *)space->machine->driver_data;
+	int dsw = (state->keyb & 0xc0) >> 6;
+	static const char *const dswnames[] = { "DSW0", "DSW1", "DSW3", "DSW4" };
+
+	return input_port_read(space->machine, dswnames[dsw]);
+}
+
+static WRITE8_HANDLER( mjelctrn_blitter_ack_w )
+{
+	dynax_state *state = (dynax_state *)space->machine->driver_data;
+	state->blitter_irq = 0;
+}
+
+static ADDRESS_MAP_START( mjelctrn_io_map, ADDRESS_SPACE_IO, 8 )
+	ADDRESS_MAP_GLOBAL_MASK(0xff)
+	AM_RANGE( 0x00, 0x00 ) AM_DEVWRITE("msm", adpcm_reset_w)	// MSM5205 reset
+	AM_RANGE( 0x02, 0x02 ) AM_WRITE(adpcm_data_w)			// MSM5205 data
+	AM_RANGE( 0x04, 0x05 ) AM_DEVWRITE("ymsnd", ym2413_w)		//
+	AM_RANGE( 0x08, 0x08 ) AM_DEVWRITE("aysnd", ay8910_data_w)	// AY8910
+	AM_RANGE( 0x0a, 0x0a ) AM_DEVWRITE("aysnd", ay8910_address_w)	//
+	AM_RANGE( 0x11, 0x12 ) AM_WRITE(mjelctrn_blitter_ack_w)	//?
+//  AM_RANGE( 0x20, 0x20 ) AM_WRITENOP   // CRT Controller
+//  AM_RANGE( 0x21, 0x21 ) AM_WRITENOP   // CRT Controller
+	AM_RANGE( 0x40, 0x40 ) AM_WRITE(dynax_coincounter_0_w)	// Coin Counters
+	AM_RANGE( 0x41, 0x41 ) AM_WRITE(dynax_coincounter_1_w)	//
+	AM_RANGE( 0x60, 0x60 ) AM_WRITE(dynax_extra_scrollx_w)	// screen scroll X
+	AM_RANGE( 0x62, 0x62 ) AM_WRITE(dynax_extra_scrolly_w)	// screen scroll Y
+//  AM_RANGE( 0x64, 0x64 ) AM_WRITE(dynax_extra_scrollx_w)      // screen scroll X
+//  AM_RANGE( 0x66, 0x66 ) AM_WRITE(dynax_extra_scrolly_w)      // screen scroll Y
+	AM_RANGE( 0x6a, 0x6a ) AM_WRITE(hnoridur_rombank_w)		// BANK ROM Select
+	AM_RANGE( 0x80, 0x80 ) AM_WRITE(hanamai_keyboard_w)		// keyboard row select
+	AM_RANGE( 0x81, 0x81 ) AM_READ_PORT("COINS")			// Coins
+	AM_RANGE( 0x82, 0x82 ) AM_READ(mjelctrn_keyboard_1_r)		// P2
+	AM_RANGE( 0x83, 0x83 ) AM_READ(hanamai_keyboard_0_r)		// P1
+	AM_RANGE( 0x84, 0x84 ) AM_READ(mjelctrn_dsw_r)			// DSW x 4
+	AM_RANGE( 0x85, 0x85 ) AM_READ(ret_ff)				// ?
+	AM_RANGE( 0xa1, 0xa7 ) AM_WRITE(dynax_blitter_rev2_w)		// Blitter
+	AM_RANGE( 0xc0, 0xc0 ) AM_WRITE(dynax_flipscreen_w)		// Flip Screen
+	AM_RANGE( 0xc1, 0xc1 ) AM_WRITE(hanamai_layer_half_w)		// half of the interleaved layer to write to
+	AM_RANGE( 0xc2, 0xc2 ) AM_WRITE(hnoridur_layer_half2_w)	//
+//  c3,c4   seem to be related to wrap around enable
+	AM_RANGE( 0xe0, 0xe0 ) AM_WRITE(dynax_blit_pen_w)		// Destination Pen
+	AM_RANGE( 0xe1, 0xe1 ) AM_WRITE(dynax_blit_dest_w)		// Destination Layer
+	AM_RANGE( 0xe2, 0xe2 ) AM_WRITE(dynax_blit_palette01_w)	// Layers Palettes
+	AM_RANGE( 0xe3, 0xe3 ) AM_WRITE(dynax_blit_palette23_w)	//
+	AM_RANGE( 0xe4, 0xe4 ) AM_WRITE(hanamai_priority_w)		// layer priority and enable
+	AM_RANGE( 0xe5, 0xe5 ) AM_WRITE(dynax_blit_backpen_w)		// Background Color
+	AM_RANGE( 0xe6, 0xe6 ) AM_WRITE(yarunara_blit_romregion_w)	// Blitter ROM bank
+	AM_RANGE( 0xe7, 0xe7 ) AM_WRITE(hnoridur_palbank_w)
+ADDRESS_MAP_END
 
 
 /***************************************************************************
@@ -2176,6 +2360,44 @@ static MACHINE_DRIVER_START( mjdialq2 )
 	MDRV_CPU_MEMORY(mjdialq2_readmem,mjdialq2_writemem)
 MACHINE_DRIVER_END
 
+/***************************************************************************
+                                    Neruton
+***************************************************************************/
+
+/*  It runs in IM 2, thus needs a vector on the data bus:
+    0x42 and 0x44 are very similar, they should be triggered by the blitter
+    0x40 is vblank
+    0x46 is a periodic irq? */
+void neruton_update_irq( running_machine *machine )
+{
+	dynax_state *state = (dynax_state *)machine->driver_data;
+	state->blitter_irq = 1;
+	cpu_set_input_line_and_vector(state->maincpu, 0, HOLD_LINE, 0x42);
+}
+
+static INTERRUPT_GEN( neruton_vblank_interrupt )
+{
+	dynax_state *state = (dynax_state *)device->machine->driver_data;
+
+	// This is a kludge to avoid losing blitter interrupts
+	// there should be a vblank ack mechanism
+	if (state->blitter_irq)	return;
+
+	switch (cpu_getiloops(device))
+	{
+		case 0:  cpu_set_input_line_and_vector(device, 0, HOLD_LINE, 0x40);	break;
+		default: cpu_set_input_line_and_vector(device, 0, HOLD_LINE, 0x46);	break;
+	}
+}
+
+static MACHINE_DRIVER_START( neruton )
+
+	MDRV_IMPORT_FROM( mjelctrn )
+	MDRV_CPU_MODIFY("maincpu")
+	MDRV_CPU_VBLANK_INT_HACK(neruton_vblank_interrupt,1+10)	/* IM 2 needs a vector on the data bus */
+
+	MDRV_VIDEO_START(neruton)
+MACHINE_DRIVER_END
 
 /***************************************************************************
 					Yarunara / Quiz TV Q&Q / Mahjong Angels
@@ -2201,6 +2423,41 @@ static MACHINE_DRIVER_START( yarunara )
 
 	MDRV_VIDEO_ATTRIBUTES(VIDEO_TYPE_RASTER)
 	MDRV_VISIBLE_AREA(0, 336-1, 8, 256-1-8-1)
+MACHINE_DRIVER_END
+
+/***************************************************************************
+                            Mahjong Electron Base
+***************************************************************************/
+
+/*  It runs in IM 2, thus needs a vector on the data bus:
+    0xfa and 0xfc are very similar, they should be triggered by the blitter
+    0xf8 is vblank  */
+void mjelctrn_update_irq( running_machine *machine )
+{
+	dynax_state *state = (dynax_state *)machine->driver_data;
+	state->blitter_irq = 1;
+	cpu_set_input_line_and_vector(state->maincpu, 0, HOLD_LINE, 0xfa);
+}
+
+static INTERRUPT_GEN( mjelctrn_vblank_interrupt )
+{
+	dynax_state *state = (dynax_state *)device->machine->driver_data;
+
+	// This is a kludge to avoid losing blitter interrupts
+	// there should be a vblank ack mechanism
+	if (!state->blitter_irq)
+		cpu_set_input_line_and_vector(device, 0, HOLD_LINE, 0xf8);
+}
+
+static MACHINE_DRIVER_START( mjelctrn )
+
+	MDRV_IMPORT_FROM( hnoridur )
+	MDRV_CPU_MODIFY("maincpu")
+	MDRV_CPU_PROGRAM_MAP(nanajign_mem_map)
+	MDRV_CPU_IO_MAP(mjelctrn_io_map)
+	MDRV_CPU_VBLANK_INT("screen", mjelctrn_vblank_interrupt)	/* IM 2 needs a vector on the data bus */
+
+	MDRV_VIDEO_START(mjelctrn)
 MACHINE_DRIVER_END
 
 
@@ -2277,6 +2534,32 @@ ROM_START( hanamai )
 	ROM_REGION( 0x400, REGION_PROMS, ROMREGION_DISPOSE )	/* Color PROMs */
 	ROM_LOAD( "2.3j",  0x000, 0x200, CRC(7b0618a5) SHA1(df3aadcc7d54fab0c07f85d20c138a45798644e4) )	/* FIXED BITS (0xxxxxxx)*/
 	ROM_LOAD( "1.4j",  0x200, 0x200, CRC(9cfcdd2d) SHA1(a649e9381754c4a19ccecc6e558067cc3ff27f91) )
+ROM_END
+
+/***************************************************************************
+
+    Mahjong Electron Base
+
+***************************************************************************/
+
+ROM_START( mjelctrn )
+	ROM_REGION( 0x30000, "maincpu", 0 )	// Z80 Code
+	ROM_LOAD( "u27b-020", 0x00000, 0x20000, CRC(7773d382) SHA1(1d2ae799677e99c7cba09b0a2c49bb9310232e80) )
+	ROM_CONTINUE(         0x00000, 0x20000 )
+	ROM_RELOAD(           0x10000, 0x20000 )
+	ROM_CONTINUE(         0x28000, 0x08000 )
+	ROM_CONTINUE(         0x20000, 0x08000 )
+	ROM_CONTINUE(         0x18000, 0x08000 )
+	ROM_CONTINUE(         0x10000, 0x08000 )
+
+	ROM_REGION( 0x100000, "gfx1", 0 )	// blitter data
+	ROM_LOAD( "eb-01.rom", 0x000000, 0x100000, CRC(e5c41448) SHA1(b8322e32b0cb3d771316c9c4f7be91de6e422a24) )
+
+	ROM_REGION( 0x080000, "gfx2", 0 )	// blitter data
+	ROM_LOAD( "eb-02.rom", 0x000000, 0x080000, CRC(e1f1b431) SHA1(04a612aff4c30cb8ea741f228bfa7e4289acfee8) )
+
+	ROM_REGION( 0x040000, "gfx3", 0 )	// blitter data
+	ROM_LOAD( "mj-1c020",  0x000000, 0x040000, CRC(f8e8d91b) SHA1(409e276157b328e7bbba5dda6a4c7adc020d519a) )
 ROM_END
 
 
@@ -2985,6 +3268,7 @@ GAMEX( 1991, mjdialq2, 0,        mjdialq2, mjdialq2, 0,    ROT180, "Dynax",     
 GAME ( 1991, yarunara, 0,        yarunara, yarunara, 0,    ROT180, "Dynax",                  "Mahjong Yarunara (Japan)"                              )
 GAMEX( 1991, mjangels, 0,        yarunara, yarunara, 0,    ROT180, "Dynax",                  "Mahjong Angels - Comic Theater Vol.2 (Japan)",         GAME_IMPERFECT_GRAPHICS )
 GAME ( 1992, quiztvqq, 0,        yarunara, quiztvqq, 0,    ROT180, "Dynax",                  "Quiz TV Gassyuukoku QandQ (Japan)"                       )
+GAME( 1993, mjelctrn, 0,        mjelctrn, mjelctrn, mjelct3,  ROT180, "Dynax",                    "Mahjong Electron Base (parts 2 & 4, Japan)",                    GAME_SUPPORTS_SAVE )
 GAME ( 1994, maya,     0,        sprtmtch, sprtmtch, maya, ROT0,   "Promat",                 "Maya"                                                  )
 GAME ( 199?, inca,     maya,     sprtmtch, sprtmtch, maya, ROT0,   "unknown",                "Inca"                                                  )
 

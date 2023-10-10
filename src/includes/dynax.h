@@ -19,6 +19,7 @@ extern UINT8 dynax_blitter_irq;
 /* Functions defined in drivers: */
 
 void sprtmtch_update_irq(void);
+void mjelctrn_update_irq(running_machine *machine);
 
 /***************************************************************************
 
@@ -53,6 +54,7 @@ VIDEO_START( hanamai );
 VIDEO_START( hnoridur );
 VIDEO_START( mcnpshnt );
 VIDEO_START( sprtmtch );
+VIDEO_START( mjelctrn );
 VIDEO_START( mjdialq2 );
 
 VIDEO_UPDATE( hanamai );
